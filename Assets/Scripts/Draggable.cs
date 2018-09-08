@@ -30,10 +30,10 @@ namespace Assets.Scripts
 
         void OnMouseDrag()
         {
-            //Vector3 newPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f);
-            //transform.position = Camera.main.ScreenToWorldPoint(newPosition) + offset;
-            //rb.velocity = Vector2.zero;
-            //transform.rotation = initialRotation;
+            Vector3 newPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f);
+            transform.position = Camera.main.ScreenToWorldPoint(newPosition) + offset;
+            rb.velocity = Vector2.zero;
+            transform.rotation = initialRotation;
 
         }
 

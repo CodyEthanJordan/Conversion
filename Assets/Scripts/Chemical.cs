@@ -8,7 +8,20 @@ namespace Assets.Scripts
 {
     public class Chemical : MonoBehaviour
     {
+        public static readonly float RoomTemperature = 300;
+
         public string Name;
-        public float Temperature = 300;
+        public float Temperature = RoomTemperature;
+
+        public void ApplyHeat(float heat)
+        {
+            Temperature += heat;
+            Debug.Log(this.name + " is now " + Temperature + "K");
+        }
+
+        private void FixedUpdate()
+        {
+            
+        }
     }
 }

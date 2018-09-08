@@ -10,6 +10,10 @@ namespace Assets.Scripts
     {
         [SerializeField] private Sprite onSprite;
         [SerializeField] private Sprite offSprite;
+        [SerializeField] private Vector2 heatOrigin;
+        [SerializeField] private Vector2 heatSize;
+
+        public float HeatApplied = 0.3f;
 
         private SpriteRenderer sr;
 
@@ -49,6 +53,27 @@ namespace Assets.Scripts
         private void OnMouseDown()
         {
             Activated = !Activated;
+        }
+
+        private void FixedUpdate()
+        {
+            if(Activated) //heat up stuff
+            {
+                var currentPosition = new Vector2(transform.position.x, transform.position.y);
+                foreach (var item in Physics2D.OverlapBoxAll(currentPosition + heatOrigin, heatSize, 0))
+                {
+                    Chemical chem = item.GetComponent<Chemical>();
+                    if(chem != null)
+                    {
+                        chem.ApplyHeat(HeatApplied);
+                    }
+                }
+            }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawCube(this.transform.position + new Vector3(heatOrigin.x, heatOrigin.y, 0), heatSize);
         }
     }
 
