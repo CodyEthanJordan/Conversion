@@ -22,7 +22,7 @@ namespace Assets.Scripts
             }
 
             int detectedSamples = 0;
-            Dictionary<string, float> composition = new Dictionary<string, float>();
+            CompDict composition = new CompDict();
 
             foreach (var item in Physics2D.OverlapBoxAll(currentPosition + probeOrigin, probeSize, 0))
             {
@@ -58,10 +58,11 @@ namespace Assets.Scripts
                     total += kvp.Value;
                 }
 
-                //foreach (var kvp in composition)
-                //{
-                //    composition[kvp.Key] = kvp.Value / total;
-                //}
+                List<string> keys = new List<string>(composition.Keys);
+                foreach (var key in keys)
+                {
+                    composition[key] = composition[key] / total * 100;
+                }
 
                 outputText.text = Liquid.GetComposition(composition);
             }

@@ -91,6 +91,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 
   Temperature: 300
+  Composition:
+    keys:
+    - H20
+    values:
+    - 100
 --- !u!212 &212863697934501794
 SpriteRenderer:
   m_ObjectHideFlags: 1

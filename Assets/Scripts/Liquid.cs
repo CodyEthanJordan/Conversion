@@ -8,13 +8,16 @@ namespace Assets.Scripts
 {
     public class Liquid : Chemical
     {
-        public Dictionary<string, float> Composition;
+    public CompDict Composition = new CompDict()
+        {
+            {"H20", 100 }
+        };
 
         private void Start()
         {
             if (Composition == null)
             {
-                Composition = new Dictionary<string, float>();
+                Composition = new CompDict();
             }
 
             if (Composition.Count == 0)
@@ -29,7 +32,7 @@ namespace Assets.Scripts
             Composition.Add("H2O", 100);
         }
 
-        public static string GetComposition(Dictionary<string, float> Composition)
+        public static string GetComposition(CompDict Composition)
         {
             string composition = "";
             foreach (var kvp in Composition)

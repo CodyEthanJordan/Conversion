@@ -7,6 +7,7 @@ namespace Assets.Scripts
     public class Draggable : MonoBehaviour
     {
         private float Speed = 5;
+        private float angleSpeed = 5;
 
         private Vector3 offset;
         private Rigidbody2D rb;
@@ -46,7 +47,7 @@ namespace Assets.Scripts
             }
             else
             {
-                targetRotation = initialRotation;
+                targetRotation = Quaternion.Euler(0, 0, 0);
             }
 
             var angleDiff = targetRotation.eulerAngles.z - this.transform.rotation.eulerAngles.z;
@@ -56,7 +57,7 @@ namespace Assets.Scripts
             }
             else
             {
-                rb.angularVelocity = angleDiff;
+                rb.angularVelocity = angleDiff * angleSpeed;
             }
 
         }
