@@ -11,7 +11,18 @@ namespace Assets.Scripts
         [SerializeField] private Vector2 reactionOrigin;
         [SerializeField] private Vector2 reactionSize;
 
-
+        private void Update()
+        {
+            var currentPosition = new Vector2(transform.position.x, transform.position.y);
+            foreach (var item in Physics2D.OverlapBoxAll(currentPosition + reactionOrigin, reactionSize, 0))
+            {
+                var liquid = item.GetComponent<Liquid>();
+                if (liquid == null)
+                {
+                    continue;
+                }
+            }
+        }
 
 
         private void OnDrawGizmos()

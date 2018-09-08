@@ -52,17 +52,7 @@ namespace Assets.Scripts
             else
             {
                 //normalize results
-                float total = 0;
-                foreach (var kvp in composition)
-                {
-                    total += kvp.Value;
-                }
-
-                List<string> keys = new List<string>(composition.Keys);
-                foreach (var key in keys)
-                {
-                    composition[key] = composition[key] / total * 100;
-                }
+                Liquid.Normalize(composition);
 
                 outputText.text = Liquid.GetComposition(composition);
             }

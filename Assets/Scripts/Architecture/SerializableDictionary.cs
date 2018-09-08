@@ -41,4 +41,16 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
     }
 }
 
-[Serializable] public class CompDict : SerializableDictionary<string, float> { }
+[Serializable] public class CompDict : SerializableDictionary<string, float>
+{
+    public static CompDict Clone(CompDict input)
+    {
+        CompDict output = new CompDict();
+        foreach (var kvp in input)
+        {
+            output.Add(kvp.Key, kvp.Value);
+        }
+        return output;
+    }
+}
+
