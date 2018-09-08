@@ -10,9 +10,12 @@ namespace Assets.Scripts
     {
         public Chute chute;
 
-        private void OnMouseDown()
+        private void Update()
         {
-            chute.Dispense();
+            if(Input.GetMouseButton(0))
+            {
+                chute.Dispense();
+            }
         }
     }
 }
