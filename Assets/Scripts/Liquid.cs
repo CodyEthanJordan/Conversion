@@ -70,7 +70,7 @@ namespace Assets.Scripts
             {
                 if(Composition.ContainsKey(chemical))
                 {
-                    Composition[chemical] = Composition[chemical] + amount;
+                    Composition[chemical] = amount;
                 }
                 else
                 {

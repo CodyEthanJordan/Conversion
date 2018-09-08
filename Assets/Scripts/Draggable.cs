@@ -46,11 +46,8 @@ namespace Assets.Scripts
                 targetRotation = Quaternion.Euler(0, 0, 0);
             }
 
-
-
             var angleDiff = targetRotation.eulerAngles.z - this.transform.rotation.eulerAngles.z;
 
-            Debug.Log(angleDiff);
             if (angleDiff <= -180)
             {
                 rb.angularVelocity = (angleDiff + 360) * angleSpeed;
