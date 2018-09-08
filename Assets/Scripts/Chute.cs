@@ -18,7 +18,8 @@ namespace Assets.Scripts
         {
             if (timeSinceLastDispense > Cooldown)
             {
-                Instantiate(Thing, this.transform.position + dispenseOrigin, Quaternion.identity);
+                var newThing = Instantiate(Thing, this.transform.position + dispenseOrigin, Quaternion.identity);
+                newThing.GetComponent<Rigidbody2D>().velocity = UnityEngine.Random.insideUnitCircle / 3;
                 timeSinceLastDispense = 0;
             }
         }

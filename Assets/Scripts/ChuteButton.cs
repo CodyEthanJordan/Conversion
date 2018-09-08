@@ -10,9 +10,9 @@ namespace Assets.Scripts
     {
         public Chute chute;
 
-        private void Update()
+        private void OnMouseOver()
         {
-            if(Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0))
             {
                 chute.Dispense();
             }
