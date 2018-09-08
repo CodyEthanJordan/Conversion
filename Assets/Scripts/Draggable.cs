@@ -7,7 +7,7 @@ namespace Assets.Scripts
     public class Draggable : MonoBehaviour
     {
         private float Speed = 5;
-        private float angleSpeed = 5;
+        private float angleSpeed = 2;
 
         private Vector3 offset;
         private Rigidbody2D rb;
@@ -32,10 +32,6 @@ namespace Assets.Scripts
 
         void OnMouseDrag()
         {
-            //Vector3 newPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f);
-            //transform.position = Camera.main.ScreenToWorldPoint(newPosition) + offset;
-            //rb.velocity = Vector2.zero;
-            //transform.rotation = initialRotation;
             Vector3 mouse = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f);
             targetPosition = Camera.main.ScreenToWorldPoint(mouse) + offset;
             var currentPosition = new Vector2(this.transform.position.x, this.transform.position.y);
@@ -50,10 +46,18 @@ namespace Assets.Scripts
                 targetRotation = Quaternion.Euler(0, 0, 0);
             }
 
+
+
             var angleDiff = targetRotation.eulerAngles.z - this.transform.rotation.eulerAngles.z;
-            if (angleDiff > 180)
+
+            Debug.Log(angleDiff);
+            if (angleDiff <= -180)
             {
-                rb.angularVelocity = angleDiff - 360;
+                rb.angularVelocity = (angleDiff + 360) * angleSpeed;
+            }
+            else if (angleDiff >= 180)
+            {
+                rb.angularVelocity = (angleDiff - 360) * angleSpeed;
             }
             else
             {
