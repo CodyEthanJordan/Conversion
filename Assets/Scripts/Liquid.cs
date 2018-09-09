@@ -88,19 +88,37 @@ namespace Assets.Scripts
         private void Update()
         {
             //lets do some reactions
-            float rateConstant = reactions.GetConstant(CatalystPresent);
-
-            var abRate = rateConstant * HowMuch("A") * HowMuch("B");
+            float abConstant = reactions.GetConstant("A", "B", CatalystPresent);
+            var abRate = abConstant * HowMuch("A") * HowMuch("B");
             SetAmount("A", HowMuch("A") - abRate / 2 * Time.deltaTime);
             SetAmount("B", HowMuch("B") - abRate / 2 * Time.deltaTime);
-            SetAmount("C", HowMuch("C") + abRate * Time.deltaTime);
+            SetAmount("E", HowMuch("E") + abRate * Time.deltaTime);
+
+            float acConstant = reactions.GetConstant("A", "C", CatalystPresent);
+            var acRate = abConstant * HowMuch("A") * HowMuch("C");
+            SetAmount("A", HowMuch("A") - acRate / 2 * Time.deltaTime);
+            SetAmount("C", HowMuch("C") - acRate / 2 * Time.deltaTime);
+            SetAmount("D", HowMuch("D") + acRate * Time.deltaTime);
+
+            float bdConstant = reactions.GetConstant("B", "D", CatalystPresent);
+            var bdRate = abConstant * HowMuch("B") * HowMuch("D");
+            SetAmount("B", HowMuch("B") - bdRate / 2 * Time.deltaTime);
+            SetAmount("D", HowMuch("D") - bdRate / 2 * Time.deltaTime);
+            SetAmount("G", HowMuch("G") + bdRate * Time.deltaTime);
 
             //precipitate
-            if (HowMuch("C") > 50)
+            if (HowMuch("G") > 50)
             {
                 Instantiate(goalium, this.transform.position, Quaternion.identity);
                 Destroy(this.gameObject);
             }
+
+            if (HowMuch("E") > 50)
+            {
+                Debug.Log("Explode!");
+            }
+
+            //explode
         }
 
         public static void Normalize(CompDict input)

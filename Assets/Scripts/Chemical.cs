@@ -16,7 +16,6 @@ namespace Assets.Scripts
         public void ApplyHeat(float heat)
         {
             Temperature += heat;
-            Debug.Log(this.name + " is now " + Temperature + "K");
         }
 
         private void FixedUpdate()
