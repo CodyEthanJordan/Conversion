@@ -16,8 +16,15 @@ namespace Assets.Scripts
             int detectedSamples = 0;
             var currentPosition = new Vector2(transform.position.x, transform.position.y);
             CompDict composition = new CompDict();
+            bool catlystPresent = false;
             foreach (var item in Physics2D.OverlapBoxAll(currentPosition + reactionOrigin, reactionSize, 0))
             {
+                var catalyst = item.GetComponent<Catalyst>();
+                if (catalyst != null)
+                {
+                    catlystPresent = true;
+                }
+
                 var liquid = item.GetComponent<Liquid>();
                 if (liquid == null)
                 {
@@ -47,6 +54,7 @@ namespace Assets.Scripts
                     {
                         continue;
                     }
+                    liquid.CatalystPresent = catlystPresent;
                     liquid.Composition = CompDict.Clone(composition);
                 }
             }

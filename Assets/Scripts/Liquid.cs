@@ -8,9 +8,11 @@ namespace Assets.Scripts
 {
     public class Liquid : Chemical
     {
-        public float rateConstant = 0.1f;
-
         [SerializeField] private GameObject goalium;
+
+        public bool CatalystPresent = false;
+
+        private Reactions reactions;
 
         public CompDict Composition = new CompDict()
         {
@@ -28,6 +30,8 @@ namespace Assets.Scripts
             {
                 MakeWater(); //default all substances to water, can set when instantiated if we want
             }
+
+            reactions = GameObject.Find("GameManager").GetComponent<Reactions>();
         }
 
         public void MakeWater()
@@ -49,7 +53,7 @@ namespace Assets.Scripts
 
         private float HowMuch(string chemical)
         {
-            if(Composition.ContainsKey(chemical))
+            if (Composition.ContainsKey(chemical))
             {
                 return Composition[chemical];
             }
@@ -59,18 +63,18 @@ namespace Assets.Scripts
 
         private void SetAmount(string chemical, float amount)
         {
-            if(amount < 0)
+            if (amount < 0)
             {
                 amount = 0;
             }
 
-            if(amount == 0)
+            if (amount == 0)
             {
                 Composition.Remove(chemical);
             }
             else
             {
-                if(Composition.ContainsKey(chemical))
+                if (Composition.ContainsKey(chemical))
                 {
                     Composition[chemical] = amount;
                 }
@@ -84,14 +88,15 @@ namespace Assets.Scripts
         private void Update()
         {
             //lets do some reactions
+            float rateConstant = reactions.GetConstant(CatalystPresent);
 
             var abRate = rateConstant * HowMuch("A") * HowMuch("B");
             SetAmount("A", HowMuch("A") - abRate / 2 * Time.deltaTime);
             SetAmount("B", HowMuch("B") - abRate / 2 * Time.deltaTime);
-            SetAmount("C", HowMuch("C") + abRate  * Time.deltaTime);
+            SetAmount("C", HowMuch("C") + abRate * Time.deltaTime);
 
             //precipitate
-            if(HowMuch("C") > 0.9f)
+            if (HowMuch("C") > 90)
             {
                 Instantiate(goalium, this.transform.position, Quaternion.identity);
                 Destroy(this.gameObject);
