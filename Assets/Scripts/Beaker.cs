@@ -37,12 +37,6 @@ namespace Assets.Scripts
                 }
             }
 
-            Debug.Log("Composition of " + gameObject.name);
-            foreach (var item in composition)
-            {
-                Debug.Log(item.Key + " " + item.Value);
-            }
-
             if (detectedSamples > 0)
             {
                 Liquid.Normalize(composition);
