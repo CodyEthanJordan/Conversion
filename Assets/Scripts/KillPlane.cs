@@ -11,10 +11,12 @@ namespace Assets.Scripts
         [SerializeField] private Vector2 killOirgin;
         [SerializeField] private Vector2 killSize;
         public GameManager gm;
+        private AudioSource audio;
 
         private void Start()
         {
             gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+            audio = GetComponent<AudioSource>();
         }
 
         private void Update()
@@ -30,6 +32,12 @@ namespace Assets.Scripts
                         gm.ScorePoint();
                     }
                 }
+
+                if(item.CompareTag("Glass"))
+                {
+                    audio.Play();
+                }
+
 
                 Destroy(item);
             }

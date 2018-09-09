@@ -11,6 +11,21 @@ namespace Assets.Scripts
         [SerializeField] private Vector2 reactionOrigin;
         [SerializeField] private Vector2 reactionSize;
 
+        private AudioSource audio;
+
+        private void Awake()
+        {
+            audio = GetComponent<AudioSource>();
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if(collision.gameObject.CompareTag("Glass"))
+            {
+                audio.Play();
+            }
+        }
+
         private void Update()
         {
             int detectedSamples = 0;

@@ -8,14 +8,14 @@ namespace Assets.Scripts
 {
     class BusenController : MonoBehaviour
     {
-        [SerializeField] private Sprite onSprite;
-        [SerializeField] private Sprite offSprite;
+        [SerializeField] private SpriteRenderer flameRenderer;
         [SerializeField] private Vector2 heatOrigin;
         [SerializeField] private Vector2 heatSize;
 
         public float HeatApplied = 0.3f;
 
         private SpriteRenderer sr;
+        private AudioSource audio;
 
         private bool _activated;
         public bool Activated
@@ -31,6 +31,7 @@ namespace Assets.Scripts
         private void Awake()
         {
             sr = GetComponent<SpriteRenderer>();
+            audio = GetComponent<AudioSource>();
         }
 
         private void Start()
@@ -42,11 +43,13 @@ namespace Assets.Scripts
         {
             if(Activated)
             {
-                sr.sprite = onSprite;
+                audio.Play();
+                flameRenderer.enabled = true;
             }
             else
             {
-                sr.sprite = offSprite;
+                flameRenderer.enabled = false;
+                audio.Stop();
             }
         }
 

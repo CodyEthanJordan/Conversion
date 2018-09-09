@@ -9,6 +9,10 @@ namespace Assets.Scripts
     public class Liquid : Chemical
     {
         [SerializeField] private GameObject goalium;
+        private float explosionRadius = 3;
+         private float explosionVelocity = 1000;
+
+        private AudioSource audio;
 
         public bool CatalystPresent = false;
 
@@ -32,6 +36,11 @@ namespace Assets.Scripts
             }
 
             reactions = GameObject.Find("GameManager").GetComponent<Reactions>();
+        }
+
+        private void Awake()
+        {
+            audio = GetComponent<AudioSource>();
         }
 
         public void MakeWater()
@@ -95,10 +104,10 @@ namespace Assets.Scripts
             SetAmount("E", HowMuch("E") + abRate * Time.deltaTime);
 
             float acConstant = reactions.GetConstant("A", "C", CatalystPresent);
-            var acRate = abConstant * HowMuch("A") * HowMuch("C");
+            var acRate = acConstant * HowMuch("A") * HowMuch("C");
             SetAmount("A", HowMuch("A") - acRate / 2 * Time.deltaTime);
             SetAmount("C", HowMuch("C") - acRate / 2 * Time.deltaTime);
-            SetAmount("D", HowMuch("D") + acRate * Time.deltaTime);
+            SetAmount("G", HowMuch("G") + acRate * Time.deltaTime);
 
             float bdConstant = reactions.GetConstant("B", "D", CatalystPresent);
             var bdRate = abConstant * HowMuch("B") * HowMuch("D");
@@ -115,7 +124,18 @@ namespace Assets.Scripts
 
             if (HowMuch("E") > 50)
             {
-                Debug.Log("Explode!");
+                GameObject.Find("Exploder").GetComponent<AudioSource>().Play();
+                var currentPosition = new Vector2(transform.position.x, transform.position.y);
+                foreach (var item in Physics2D.OverlapCircleAll(currentPosition, explosionRadius))
+                {
+                    Debug.Log(item.name);
+                    var rigidBody = item.GetComponent<Rigidbody2D>();
+                    if(rigidBody != null)
+                    {
+                        rigidBody.AddForce(UnityEngine.Random.insideUnitCircle * explosionVelocity);
+                    }
+                }
+                Destroy(this.gameObject);
             }
 
             //explode
@@ -134,6 +154,11 @@ namespace Assets.Scripts
             {
                 input[key] = input[key] / total * 100;
             }
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.DrawWireCube(this.transform.position, explosionRadius * Vector3.one);
         }
 
 

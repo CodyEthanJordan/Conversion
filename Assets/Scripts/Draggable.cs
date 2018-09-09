@@ -48,7 +48,11 @@ namespace Assets.Scripts
 
             var angleDiff = targetRotation.eulerAngles.z - this.transform.rotation.eulerAngles.z;
 
-            if (angleDiff <= -180)
+            if ( Mathf.Abs(angleDiff) < 4)
+            {
+
+            }
+            else if (angleDiff <= -180)
             {
                 rb.angularVelocity = (angleDiff + 360) * angleSpeed;
             }
