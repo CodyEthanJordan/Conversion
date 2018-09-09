@@ -37,7 +37,7 @@ namespace Assets.Scripts
             var currentPosition = new Vector2(this.transform.position.x, this.transform.position.y);
             rb.velocity = (targetPosition - transform.position) * Speed;
 
-            if (Input.GetMouseButton(1))
+            if (Input.GetMouseButton(1) || Input.GetKey(KeyCode.Space))
             {
                 targetRotation = Quaternion.Euler(0, 0, 180);
             }

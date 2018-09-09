@@ -10,7 +10,7 @@ namespace Assets.Scripts
     {
         public static readonly float RoomTemperature = 300;
 
-        public string Name;
+        public string ChemicalName;
         public float Temperature = RoomTemperature;
 
         public void ApplyHeat(float heat)

@@ -96,7 +96,7 @@ namespace Assets.Scripts
             SetAmount("C", HowMuch("C") + abRate * Time.deltaTime);
 
             //precipitate
-            if (HowMuch("C") > 90)
+            if (HowMuch("C") > 50)
             {
                 Instantiate(goalium, this.transform.position, Quaternion.identity);
                 Destroy(this.gameObject);
