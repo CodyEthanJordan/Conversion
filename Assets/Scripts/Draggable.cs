@@ -30,6 +30,11 @@ namespace Assets.Scripts
                 Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f));
         }
 
+        private void OnMouseUp()
+        {
+            rb.angularVelocity = rb.angularVelocity / 4;
+        }
+
         void OnMouseDrag()
         {
             Vector3 mouse = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f);
