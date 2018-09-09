@@ -58,7 +58,7 @@ namespace Assets.Scripts
             }
         }
 
-        private void OnDrawGizmos()
+        private void OnDrawGizmosSelected()
         {
             Gizmos.DrawWireCube(this.transform.position + new Vector3(probeOrigin.x, probeOrigin.y, 0), probeSize);
         }

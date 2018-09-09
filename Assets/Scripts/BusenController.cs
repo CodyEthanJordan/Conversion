@@ -71,9 +71,9 @@ namespace Assets.Scripts
             }
         }
 
-        private void OnDrawGizmos()
+        private void OnDrawGizmosSelected()
         {
-            Gizmos.DrawCube(this.transform.position + new Vector3(heatOrigin.x, heatOrigin.y, 0), heatSize);
+            Gizmos.DrawWireCube(this.transform.position + new Vector3(heatOrigin.x, heatOrigin.y, 0), heatSize);
         }
     }
 

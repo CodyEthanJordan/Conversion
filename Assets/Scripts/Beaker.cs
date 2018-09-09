@@ -58,8 +58,7 @@ namespace Assets.Scripts
             }
         }
 
-
-        private void OnDrawGizmos()
+        private void OnDrawGizmosSelected()
         {
             Gizmos.DrawWireCube(this.transform.position + new Vector3(reactionOrigin.x, reactionOrigin.y, 0), reactionSize);
         }

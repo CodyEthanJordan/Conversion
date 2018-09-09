@@ -10,6 +10,8 @@ namespace Assets.Scripts
     {
         public float rateConstant = 0.1f;
 
+        [SerializeField] private GameObject goalium;
+
         public CompDict Composition = new CompDict()
         {
             {"H20", 100 }
@@ -39,7 +41,7 @@ namespace Assets.Scripts
             string composition = "";
             foreach (var kvp in Composition)
             {
-                composition = composition + kvp.Key + ":" + kvp.Value + "%\n";
+                composition = composition + kvp.Key + ":" + kvp.Value.ToString("0.") + "%\n";
             }
 
             return composition;
@@ -87,6 +89,13 @@ namespace Assets.Scripts
             SetAmount("A", HowMuch("A") - abRate / 2 * Time.deltaTime);
             SetAmount("B", HowMuch("B") - abRate / 2 * Time.deltaTime);
             SetAmount("C", HowMuch("C") + abRate  * Time.deltaTime);
+
+            //precipitate
+            if(HowMuch("C") > 0.9f)
+            {
+                Instantiate(goalium, this.transform.position, Quaternion.identity);
+                Destroy(this.gameObject);
+            }
         }
 
         public static void Normalize(CompDict input)
